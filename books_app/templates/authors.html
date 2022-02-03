@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Authors</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="conatiner-fluid row">
+            <div class="container col mt-3">
+                <form action="/authors/add" class="rounded text-white bg-dark p-4" method="post">
+                    <h1 class="text-primary text-center">New Author</h1>
+                    {% with messages = get_flashed_messages(category_filter=["addauthornew"]) %}
+                        {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Flash AHHHHHHH!!!!</strong>
+                                {% for message in messages: %}
+                                    <p>{{message}}</p>                                    
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" name="name">
+                    <button type="submit" class="btn btn-outline-primary mt-3">Add Author</button>
+                </form>
+            </div>
+            <div class="container col mt-3">
+                <div class="conatiner-fluid col p-4 pb-0">
+                    <h1>All Authors</h1>
+                    <table>
+                        <tbody>
+                            {% for author in authors: %}
+                                <tr>
+                                    <td>
+                                        <a href="/{{author.id}}" class="link-primary text-decoration-none">
+                                            {{author.name}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <hr>
+                    <form action="/books" class="rounded" method="get">
+                        <button type="submit" class="btn btn-outline-primary">Add Book</button>
+                    </form>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </body>
+</html>
